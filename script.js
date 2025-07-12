@@ -242,10 +242,14 @@ function getCurrentDate() {
   });
 }
 
-function convertUnixToTime(unix, offset) {
-  const date = new Date((unix + offset) * 1000);
-  return date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+function convertUnixToTime(unix) {
+  return new Date(unix * 1000).toLocaleTimeString('en-IN', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
 }
+
 
 function getWindDirection(degree) {
   const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -468,10 +472,10 @@ async function updateWeatherByCoordinates(lat, lon) {
     windValueTxt.textContent = `${wind.speed} ${currentUnit === 'metric' ? 'm/s' : 'mph'}`;
     feelsLikeTxt.textContent = `${Math.round(main.feels_like)} °${currentUnit === 'metric' ? 'C' : 'F'}`;
     windDirTxt.textContent = getWindDirection(wind.deg);
-    pressureTxt.textContent = `${main.pressure} hPa`;
-    visibilityTxt.textContent = `${visibility / 1000} km`;
-    sunriseTxt.textContent = convertUnixToTime(sys.sunrise, timezone);
-    sunsetTxt.textContent = convertUnixToTime(sys.sunset, timezone);
+    pressureTxt.textContent = main.pressure ? `${main.pressure} hPa` : '--';
+    visibilityTxt.textContent = visibility ? `${(visibility / 1000).toFixed(1)} km` : '--';
+    sunriseTxt.textContent = convertUnixToTime(sys.sunrise);
+sunsetTxt.textContent = convertUnixToTime(sys.sunset);
     currentDateTxt.textContent = getCurrentDate();
     weatherSummaryImg.src = `assets/assets/weather/${getWeatherIcon(weather[0].id)}`;
 
@@ -504,3 +508,4 @@ window.addEventListener('load', () => {
     );
   }
 });
+
