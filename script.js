@@ -494,17 +494,13 @@ async function updateWeatherByCoordinates(lat, lon) {
 window.addEventListener('load', () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
-      async pos => {
+      pos => {
         const { latitude, longitude } = pos.coords;
-        await updateWeatherByCoordinates(latitude, longitude);
-        const city = await getCityFromCoordinates(latitude, longitude);
-        if (city) cityInput.value = city;
+        updateWeatherByCoordinates(latitude, longitude);
       },
       err => {
         console.warn('Location permission denied.');
-        showToast("Location access was denied.");
       }
     );
   }
 });
-
