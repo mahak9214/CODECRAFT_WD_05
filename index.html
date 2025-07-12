@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="main-container">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="input-container">
+        <input class="city-input" type="text" placeholder="Search City..." />
+        <button class="search-btn">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+        <button class="location-btn" title="Use Current Location">
+  <span class="material-symbols-outlined">my_location</span>
+</button>
+
+        <ul id="suggestions" class="suggestions-list"></ul>
+      </div>
+      <div class="loader" id="loader" style="display:none;"></div>
+      <canvas id="weatherChart" style="display: none;"></canvas>
+      <div class="weekly-forecast" id="forecastSection" style="display: none;">
+        <div id="forecastContainer" class="forecast-days"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel weather-info" style="display: none">
+      <div class="location-date-container">
+        <div class="location">
+          <span class="material-symbols-outlined">location_on</span>
+          <h4 class="country-txt">City Name</h4>
+        </div>
+        <h5 class="current-date-txt">Date</h5>
+      </div>
+
+      <div class="weather-summary-container">
+        <img src="assets/assets/weather/clear.svg" class="weather-summary-img" alt="weather" />
+        <div class="weather-summary-info">
+          <h1 class="temp-txt">35 °C</h1>
+          <h3 class="condition-txt">Clear</h3>
+        </div>
+      </div>
+<div class="weather-quote" id="weatherQuote"></div>
+
+      <button class="unit-toggle">Switch to °F</button>
+
+      <div class="extra-details-container">
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">device_thermostat</span>
+          <h5>Feels Like: <span class="feelslike-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">humidity_percentage</span>
+          <h5>Humidity: <span class="humidity-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">air</span>
+          <h5>Wind Speed: <span class="wind-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">explore</span>
+          <h5>Wind Dir: <span class="winddir-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">speed</span>
+          <h5>Pressure: <span class="pressure-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">visibility</span>
+          <h5>Visibility: <span class="visibility-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">wb_twilight</span>
+          <h5>Sunrise: <span class="sunrise-value-txt">--</span></h5>
+        </div>
+        <div class="extra-detail">
+          <span class="material-symbols-outlined">wb_sunny</span>
+          <h5>Sunset: <span class="sunset-value-txt">--</span></h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEFAULT STATE -->
+    <section class="search-city section-message">
+      <img src="assets/assets/message/search-city.png" alt="Search city"/>
+      <div>
+        <h1>Search City</h1>
+        <h4>Find out the weather condition of the city</h4>
+      </div>
+    </section>
+
+    <!-- NOT FOUND -->
+    <section class="not-found section-message" style="display:none">
+      <img src="assets/assets/message/not-found.png" alt="Not found"/>
+      <div>
+        <h1>City Not Found</h1>
+        <h4>Please try a different location</h4>
+      </div>
+    </section>
+  </main>
+
+  <!-- Audio -->
+  <audio id="searchSound" src="assets/assets/sound/search.mp3" preload="auto"></audio>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+</body>
+</html>
